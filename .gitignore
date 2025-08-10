@@ -31,3 +31,6 @@ dist/
 
 # Local files
 uploads/
+
+# System files
+Desktop.ini
