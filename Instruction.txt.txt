@@ -1,0 +1,67 @@
+**Objective:**  
+Create a modern, responsive, and visually appealing **website template** tailored for **data analysts** to showcase their **resume, professional portfolio, and projects** with impressive auto-filled data.  
+
+### **Key Features to Include:**  
+1. **Clean, and dark Professional Design**  
+   - Minimalist layout with a focus on readability.  
+   - Modern typography (e.g., Inter, Roboto, or Montserrat).  
+   - Professional color scheme (blues, grays, or a data-themed palette).  
+   - Animated Background 
+
+2. **Dynamic Resume Section**  
+   - Auto-fill sections:  
+     - **Header** (Name, Title, Contact, LinkedIn/GitHub)  
+     - **Skills** (Python, SQL, Tableau, Power BI, Excel, Machine Learning, etc.) with progress bars or tag clouds.  
+     - **Experience** (Job titles, companies, dates, bullet points—auto-filled with placeholder data).  
+     - **Education & Certifications** (Degrees, courses, badges).  
+
+3. **Portfolio Showcase (Auto-Generated Projects)**  
+   - **Project Cards** with:  
+     - Title, description, tech stack, and visualizations.  
+     - Auto-filled **sample projects** (e.g., "Sales Dashboard in Power BI," "Predictive Model in Python").  
+     - Interactive filters (e.g., by tool: Python, SQL, Tableau).  
+   - **Data Visualizations** (Placeholder charts/graphs from mock datasets). 
+
+4. **Interactive Elements**  
+   - **Animated charts/graphs** (D3.js, Chart.js, etc..) for project demos.  
+   - **Hover effects** on project cards.  
+   - **Downloadable resume** (PDF button).  
+
+5. **SEO & Performance Optimized**  
+   - Fast loading (optimized images, lazy loading).  
+   - Mobile-friendly (responsive design).  
+
+6. **Optional Advanced Features**  
+   - **AI-generated project summaries** (if possible).  
+   - **Contact form** with email integration.  
+
+### **Example Auto-Fill Data for Projects:**  
+```json
+{
+  "projects": [
+    {
+      "title": "Sales Performance Dashboard",
+      "description": "Interactive Power BI dashboard analyzing regional sales trends with drill-down capabilities.",
+      "tools": ["Power BI", "DAX", "SQL"],
+      "image": "dashboard-screenshot.jpg"
+    },
+    {
+      "title": "Customer Churn Prediction",
+      "description": "Machine learning model (Logistic Regression) predicting customer churn with 89% accuracy.",
+      "tools": ["Python", "Scikit-learn", "Pandas"],
+      "image": "churn-model.jpg"
+    }
+  ]
+}
+```
+
+### **Tech Stack Suggestions:**  
+- **Frontend:** HTML5, CSS3 (Tailwind/Bootstrap), JavaScript (React/Vue.js).  
+- **Backend (if dynamic):** Node.js, Firebase, or static site (Netlify/Vercel).  
+- **Data Viz:** D3.js, Chart.js, or embedded Tableau Public.  
+
+### **Tone & Style:**  
+- Professional, sleek, and data-driven.  
+- Avoid clutter; prioritize whitespace and visual hierarchy.  
+
+**Output:** Provide full HTML/CSS/JS code or a Figma prototype.  

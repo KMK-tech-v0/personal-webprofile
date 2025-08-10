@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="dark light" />
+<title>Kaung Myat Kyaw — Portfolio (Notion Compact)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root{ --bg:#061223; --card:#101827; --muted:#9aa6b2; --a1:#38bdf8; --a2:#6366f1; --radius:12px; }
+  @media (prefers-color-scheme: light){ :root{ --bg:#f8fafc; --card:#ffffff; --muted:#475569; --a1:#0284c7; --a2:#4f46e5; } body{ color:#0f172a; } .muted{ color:#475569 } }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{ margin:0; font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background:var(--bg); color:#e6eef6; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden }
+  #bgCanvas,#waveCanvas,#bgVideo,#bgOverlay{ display:none }
+
+  .container{ max-width:100%; margin:0 auto; padding:8px }
+  header{ display:flex; gap:12px; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,0.06) }
+  .left{ display:flex; gap:12px; align-items:center }
+  .avatar{ width:80px; height:80px; border-radius:12px; overflow:hidden; background:linear-gradient(135deg,var(--a1),var(--a2)); display:grid; place-items:center }
+  .avatar img{ width:100%; height:100%; object-fit:cover; display:block }
+  h1{ margin:0; font-size:1.05rem }
+  p.role{ margin:0; color:var(--muted); font-weight:600; font-size:0.92rem }
+  .contacts{ color:var(--muted); font-size:0.85rem; margin-top:4px }
+  .actions{ display:flex; gap:8px; align-items:center }
+  .btn, .filter-btn{ padding:6px 10px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:var(--muted); cursor:pointer; font-weight:600; font-size:0.9rem }
+  .btn.primary{ background:linear-gradient(90deg,var(--a1),var(--a2)); color:#041026; border:none }
+
+  .grid{ display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px }
+  .sidebar{ background:rgba(255,255,255,0.03); padding:10px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.06) }
+  .block{ margin-bottom:12px }
+  .block h3{ margin:0 0 6px 0; font-size:1rem; color:var(--a1) }
+  .muted{ color:var(--muted); font-size:0.92rem }
+
+  .skill{ margin:8px 0 }
+  .skill .meta{ display:flex; justify-content:space-between; font-size:0.88rem; margin-bottom:4px }
+  .bar{ width:100%; height:8px; background:rgba(255,255,255,0.06); border-radius:10px; overflow:hidden }
+  .bar>i{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--a1),var(--a2)); transition:width .8s ease }
+
+  .main{ display:flex; flex-direction:column; gap:10px }
+  .projects{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:10px }
+  .card{ background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; overflow:hidden; display:flex; flex-direction:column }
+  .card .media{ height:130px; background:#0b1424 }
+  .card img, .card video{ width:100%; height:130px; object-fit:cover; display:block }
+  .card .body{ padding:10px; display:flex; flex-direction:column; gap:6px }
+  .card h4{ margin:0; font-size:0.98rem }
+  .card p{ margin:0; color:var(--muted); font-size:0.9rem }
+  .tags{ display:flex; gap:6px; flex-wrap:wrap }
+  .tag{ font-size:0.78rem; padding:4px 6px; border-radius:8px; background:rgba(255,255,255,0.06); color:var(--muted) }
+
+  .chart-box{ background:rgba(255,255,255,0.03); padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.06) }
+  footer{ margin-top:12px; text-align:center; color:var(--muted); font-size:0.85rem }
+
+  .modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.7); display:grid; place-items:center; z-index:40; padding:12px }
+  .modal-content{ width:100%; max-width:860px; background:rgba(15,26,44,0.98); border-radius:10px; padding:12px; border:1px solid rgba(255,255,255,0.08); display:grid; grid-template-columns:1fr 320px; gap:10px; position:relative }
+  .modal-left img, .modal-left video{ width:100%; height:300px; object-fit:cover; border-radius:8px }
+  .modal-right{ display:flex; flex-direction:column; gap:8px }
+  .close-x{ position:absolute; right:12px; top:10px; cursor:pointer; font-size:20px; color:var(--muted) }
+  @media (max-width:900px){ .modal-content{ grid-template-columns:1fr; max-height:88vh; overflow:auto } .modal-left img, .modal-left video{ height:220px } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="left">
+      <div class="avatar"><img src="assets/profile-photo.jpg" alt="Kaung Myat Kyaw"/></div>
+      <div>
+        <h1>Kaung Myat Kyaw</h1>
+        <p class="role">Data Analyst — Telecom & Operations</p>
+        <div class="contacts">📍 Yangon · 📧 kaungmyatkyaw446844590@gmail.com · 📞 +95 9446844590</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="downloadResumeBtn" class="btn primary">📄 Download</button>
+      <button id="toggleTheme" class="btn">Toggle Accent</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <aside class="sidebar">
+      <div class="block">
+        <h3>Professional Summary</h3>
+        <p class="muted">Detail-oriented and results-driven Data Analyst with 5+ years across telecom analytics, production management, and operations. Skilled in SQL, Python, R, Power BI, and Excel.</p>
+      </div>
+      <div class="block">
+        <h3>Skills</h3>
+        <div id="skillsList"></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="chart-box">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3 style="margin:0;color:var(--a1)">Portfolio & Projects</h3>
+          <div id="filters" class="actions" style="gap:6px"></div>
+        </div>
+        <div id="projectsGrid" class="projects" style="margin-top:8px"></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 280px;gap:10px">
+        <div class="chart-box">
+          <h3 style="color:var(--a1);margin-top:0">Project Metrics</h3>
+          <canvas id="projectsChart" style="height:200px"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3 style="color:var(--a1);margin-top:0">Quick Actions</h3>
+          <button id="generateSummaries" class="btn primary" style="width:100%;margin-top:6px">Generate Summaries</button>
+          <textarea id="aiSummary" class="textarea" placeholder="Generated summaries..." style="margin-top:8px;width:100%;min-height:80px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:10px;color:inherit;padding:8px"></textarea>
+        </div>
+      </div>
+
+      <div class="chart-box">
+        <h3 style="color:var(--a1)">Experience</h3>
+        <div class="muted" style="margin-top:6px">
+          <strong>Data Analyst</strong> — Myanmar Padauk Engineering & Construction Co., Ltd (Mar 2024 – Present)<br>
+          <strong>Production Assistant Manager</strong> — Nilar Frozen Foods Co., Ltd (May 2021 – Feb 2024)
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer>Notion compact embed — minimal spacing.</footer>
+</div>
+
+<div id="modalRoot" aria-hidden="true"></div>
+
+<script>
+const PROFILE = {
+  name: "Kaung Myat Kyaw",
+  title: "Data Analyst",
+  skills: [
+    { name: "Microsoft Excel", lvl: 95 },
+    { name: "MySQL", lvl: 82 },
+    { name: "Python", lvl: 72 },
+    { name: "R Programming", lvl: 64 },
+    { name: "Power BI", lvl: 78 },
+    { name: "Data Cleaning", lvl: 98 }
+  ],
+  projects: [
+    { id:"p1", title:"Sales Performance Dashboard", description:"Interactive Power BI dashboard analyzing regional sales trends with drill-down capabilities and KPI tracking.", tools:["Power BI","DAX","SQL","Excel"], image:"assets/fc.jpg", metrics:{views:1200, interactions:320, score:87}, dataset: generateDemoTimeseries("Sales", 24, 2000, 5000) },
+    { id:"p2", title:"Customer Churn Prediction", description:"Logistic regression model with ~89% accuracy; includes feature importance and deployment notes.", tools:["Python","Scikit-learn","Pandas"], image:"assets/logoelement.png", metrics:{views:980, interactions:210, score:89}, dataset: generateDemoTable(["cust_id","tenure","monthly_charge","churn"], 80) },
+    { id:"p3", title:"Network Usage Analytics", description:"Telecom usage analysis and anomaly detection for network ops.", tools:["SQL","Python","Tableau"], image:"https://cdn.pixabay.com/video/2023/04/15/159049-818026306_tiny.mp4", metrics:{views:650, interactions:120, score:81}, dataset: generateDemoTimeseries("NetworkUsage", 48, 2000, 16000) },
+    { id:"p6", title:"Pricing & Revenue Simulation", description:"Scenario-based pricing simulations using elasticity modeling and Monte Carlo sampling.", tools:["Python","Pandas","MonteCarlo"], image:"assets/final.gif", metrics:{views:510, interactions:62, score:77}, dataset: generateDemoTable(["scenario","price","revenue","prob"], 25) }
+  ]
+};
+
+function generateDemoTimeseries(name, points=24, min=100, max=1000){ const out=[]; const now=Date.now(); for(let i=points-1;i>=0;i++){ const ts=new Date(now-i*3600*1000).toISOString(); const value=Math.round(min+Math.random()*(max-min)); out.push({timestamp:ts, metric:name, value}); } return out; }
+function generateDemoTable(cols, rows=20){ const out=[]; for(let i=0;i<rows;i++){ const row={}; cols.forEach(c=>{ if(c.includes('id')) row[c]=`ID${1000+i}`; else if(/price|charge/i.test(c)) row[c]=(Math.random()*100).toFixed(2); else if(/score|prob/i.test(c)) row[c]=Math.round(Math.random()*100); else if(/site/i.test(c)) row[c]=["A","B","C","D"][Math.floor(Math.random()*4)]; else if(/segment/i.test(c)) row[c]=["HighValue","Mid","Low"][Math.floor(Math.random()*3)]; else if(/churn/i.test(c)) row[c]=Math.random()>0.8?1:0; else row[c]=Math.round(Math.random()*100); }); out.push(row);} return out; }
+
+const skillsEl=document.getElementById('skillsList');
+function renderSkills(){ skillsEl.innerHTML=''; PROFILE.skills.forEach(s=>{ const d=document.createElement('div'); d.className='skill'; d.innerHTML=`<div class="meta"><div>${escapeHtml(s.name)}</div><div>${s.lvl}%</div></div><div class="bar"><i data-lvl="${s.lvl}"></i></div>`; skillsEl.appendChild(d); }); setTimeout(()=> skillsEl.querySelectorAll('i').forEach(i=> i.style.width=i.getAttribute('data-lvl')+'%'), 50); }
+renderSkills();
+
+const projectsGrid=document.getElementById('projectsGrid');
+const filtersEl=document.getElementById('filters');
+let allTools=new Set(); PROFILE.projects.forEach(p=>p.tools.forEach(t=>allTools.add(t))); allTools=Array.from(allTools).sort();
+const filterButtons=[]; function renderFilters(){ filtersEl.innerHTML=''; const btnAll=document.createElement('button'); btnAll.className='filter-btn'; btnAll.textContent='All'; btnAll.dataset.tool='all'; filtersEl.appendChild(btnAll); filterButtons.push(btnAll); btnAll.addEventListener('click', ()=> applyFilter('all')); allTools.forEach(tool=>{ const b=document.createElement('button'); b.className='filter-btn'; b.textContent=tool; b.dataset.tool=tool; filtersEl.appendChild(b); filterButtons.push(b); b.addEventListener('click', ()=> applyFilter(tool)); }); btnAll.classList.add('active'); }
+renderFilters();
+
+function makeProjectCard(p){ const card=document.createElement('article'); card.className='card'; card.dataset.tools=p.tools.join(','); const isVideo=/\.mp4($|\?)/i.test(p.image); card.innerHTML=`<div class="media">${isVideo?`<video autoplay muted loop playsinline src="${p.image}"></video>`:`<img alt="${escapeHtml(p.title)}" src="${p.image}" />`}</div><div class="body"><h4>${escapeHtml(p.title)}</h4><p>${escapeHtml(p.description)}</p><div class="tags">${p.tools.map(t=>`<span class="tag">${t}</span>`).join('')}</div><div style="display:flex;justify-content:space-between;align-items:center"><small class="muted">${p.metrics.score}% score · ${p.metrics.views} views</small><div class="actions"><button class="filter-btn btn-view" data-id="${p.id}">View</button><button class="filter-btn btn-download" data-id="${p.id}">CSV</button></div></div></div>`; const img=card.querySelector('img'); if(img){ if(p.id==='p1') img.style.objectPosition='50% 20%'; if(p.id==='p2'||p.id==='p6'){ img.style.objectFit='contain'; img.style.background='#0b1424'; } img.addEventListener('error', ()=>{ let fb=''; if(p.id==='p1') fb='assets/fc.jpg'; else if(p.id==='p2') fb='assets/logoelement.png'; else if(p.id==='p6') fb='assets/final.gif'; if(fb) img.src=fb; }); } card.querySelector('.btn-view').addEventListener('click', e=>{ e.stopPropagation(); openModal(p); }); card.querySelector('.btn-download').addEventListener('click', e=>{ e.stopPropagation(); downloadCsvForProject(p); }); card.addEventListener('click', ()=> openModal(p)); return card; }
+function renderProjects(list=PROFILE.projects){ projectsGrid.innerHTML=''; list.forEach(p=> projectsGrid.appendChild(makeProjectCard(p))); }
+renderProjects();
+
+let activeFilter='all'; function applyFilter(tool){ activeFilter=tool; filterButtons.forEach(b=> b.classList.toggle('active', b.dataset.tool===tool)); const filtered=PROFILE.projects.filter(p=> activeFilter==='all' ? true : p.tools.includes(activeFilter)); renderProjects(filtered); }
+
+function openModal(project){ const modalRoot=document.getElementById('modalRoot'); modalRoot.innerHTML=''; modalRoot.setAttribute('aria-hidden','false'); const isVideo=/\.mp4($|\?)/i.test(project.image); const d=document.createElement('div'); d.className='modal-backdrop'; d.innerHTML=`<div class="modal-content" role="dialog" aria-modal="true" aria-label="${escapeHtml(project.title)}"><div style="position:relative"><span class="close-x" title="Close">&times;</span><div class="modal-left">${isVideo?`<video autoplay muted loop playsinline src="${project.image}"></video>`:`<img src="${project.image}" alt="${escapeHtml(project.title)}"/>`}</div></div><div class="modal-right"><h2 style="margin:0">${escapeHtml(project.title)}</h2><div style="color:var(--muted);margin-bottom:6px">${escapeHtml(project.tools.join(' · '))}</div><div style="flex:1;color:var(--muted);margin-bottom:6px">${escapeHtml(project.description)}</div><div class="actions" style="gap:6px"><button id="downloadCsvModal" class="btn">Download CSV</button><button id="closeModalBtn" class="btn">Close</button></div><div style="margin-top:8px"><small class="muted">Metrics: ${project.metrics.score}% score · ${project.metrics.views} views</small></div></div></div>`; modalRoot.appendChild(d); d.querySelector('.close-x').addEventListener('click', closeModal); d.querySelector('#closeModalBtn').addEventListener('click', closeModal); d.addEventListener('click', e=>{ if(e.target===d) closeModal(); }); const mimg=d.querySelector('.modal-left img'); if(mimg){ if(project.id==='p1') mimg.style.objectPosition='50% 15%'; if(project.id==='p2'||project.id==='p6'){ mimg.style.objectFit='contain'; mimg.style.background='#0b1424'; } }
+  d.querySelector('#downloadCsvModal').addEventListener('click', ()=> downloadCsvForProject(project)); }
+function closeModal(){ const modalRoot=document.getElementById('modalRoot'); modalRoot.innerHTML=''; modalRoot.setAttribute('aria-hidden','true'); }
+
+function downloadCsvForProject(p){ const data=p.dataset; if(!data||data.length===0){ alert('No dataset available for this project.'); return; } const keys=Array.from(new Set(data.flatMap(d=>Object.keys(d)))); const rows=data.map(r=> keys.map(k=> JSON.stringify((r[k]!==undefined)?r[k]:'')).join(',')); const csv=keys.join(',')+'\n'+rows.join('\n'); const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`${p.id}_dataset.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }
+
+const projectsChartCtx=document.getElementById('projectsChart').getContext('2d'); let projectsChart; function buildProjectChart(){ const labels=PROFILE.projects.map(p=>p.title); const scores=PROFILE.projects.map(p=>p.metrics.score); const views=PROFILE.projects.map(p=>p.metrics.views); if(projectsChart) projectsChart.destroy(); projectsChart=new Chart(projectsChartCtx,{ type:'bar', data:{ labels, datasets:[ {label:'Score (%)', data:scores, backgroundColor:getComputedStyle(document.documentElement).getPropertyValue('--a1')||'#38bdf8', borderRadius:6, maxBarThickness:30 }, {label:'Views', data:views, backgroundColor:getComputedStyle(document.documentElement).getPropertyValue('--a2')||'#6366f1', borderRadius:6, maxBarThickness:30 } ] }, options:{ responsive:true, plugins:{ legend:{ labels:{ color:'var(--muted)' } } }, scales:{ x:{ ticks:{ color:'var(--muted)' }, grid:{ display:false } }, y:{ ticks:{ color:'var(--muted)' }, grid:{ color:'rgba(255,255,255,0.08)' } } } }); }
+buildProjectChart();
+
+function escapeHtml(str){ return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+document.getElementById('generateSummaries').addEventListener('click', ()=>{ document.getElementById('aiSummary').value = PROFILE.projects.map(p=>`Project "${p.title}" — ${p.description.slice(0,120)}... Tools: ${p.tools.join(', ')}. Score ${p.metrics.score}%.`).join("\n\n"); });
+
+document.getElementById('toggleTheme').addEventListener('click', ()=>{ const s=(parseInt(document.body.dataset.s||'0',10)+1)%3; document.body.dataset.s=String(s); if(s===0){ document.documentElement.style.setProperty('--a1','#38bdf8'); document.documentElement.style.setProperty('--a2','#6366f1'); } else if(s===1){ document.documentElement.style.setProperty('--a1','#7c3aed'); document.documentElement.style.setProperty('--a2','#06b6d4'); } else { document.documentElement.style.setProperty('--a1','#06d6a0'); document.documentElement.style.setProperty('--a2','#89f7fe'); } setTimeout(buildProjectChart, 100); });
+
+// Minimal PDF export (optional for Notion)
+const downloadBtn=document.getElementById('downloadResumeBtn'); downloadBtn.addEventListener('click', ()=> alert('Download available in full site.'));
+</script>
+</body>
+</html>

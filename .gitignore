@@ -1,0 +1,33 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+
+# Node / JS
+node_modules/
+.npm/
+.yarn/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.env
+
+# IDEs / Tools
+.vscode/
+.idea/
+
+# Expo / React Native
+.expo/
+.expo-shared/
+
+# Build outputs
+build/
+dist/
+.tmp/
+
+# Local files
+uploads/
