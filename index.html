@@ -331,7 +331,7 @@
   <header>
     <div class="left">
       <div class="avatar" title="Profile photo">
-        <img src="https://raw.githubusercontent.com/KMK-tech-v0/personal-webprofile/main/assets/profile-photo.jpg" alt="Kaung Myat Kyaw profile photo"/>
+        <img src="https://raw.githubusercontent.com/KMK-tech-v0/personal-webprofile/refs/heads/main/assets/profile-photo.jpg" alt="Kaung Myat Kyaw profile photo"/>
       </div>
       <div>
         <h1>Kaung Myat Kyaw</h1>
@@ -1398,10 +1398,9 @@ downloadBtn.addEventListener('click', async ()=>{
         <!-- Professional Summary -->
         <div style="margin-bottom: 20px; padding: 15px; background: linear-gradient(135deg, #f1f5f9 0%, #f8fafc 100%); border-radius: 10px; border: 1px solid #cbd5e1; box-shadow: 0 3px 8px rgba(30, 64, 175, 0.1), inset 0 1px 0 rgba(255,255,255,0.8);">
           <h2 style="color: #1e293b; font-size: 1.4em; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #2563eb; text-shadow: 0 1px 2px rgba(0,0,0,0.05);">Professional Summary</h2>
-          <ul style="margin: 0; padding-left: 18px; color: #334155; font-size: 1.05em; line-height: 1.5;">
-            <li style="margin-bottom: 8px;">Experienced professional with 9+ years across telecom data analysis, production management, sales, and office administration. Skilled at turning raw data into actionable insights and improving processes with modern analytics. Recognized for leadership, problem-solving, and adaptability.</li>
-            <li style="margin-bottom: 8px;">SQL, Python, R, Power BI, Tableau, and Excel; Data cleaning, and stakeholder communication, cross-functional partner who leads with clarity, loops, and measurable outcomes.</li>
-          </ul>
+          <p style="margin: 0; color: #334155; font-size: 1.1em; line-height: 1.6; text-align: justify;">
+            Experienced professional with 9+ years across telecom data analysis, production management, sales, and office administration. Skilled at turning raw data into actionable insights and improving processes with modern analytics. Recognized for leadership, problem-solving, and adaptability.
+          </p>
         </div>
 
         <!-- Core Competencies -->
@@ -1433,6 +1432,18 @@ downloadBtn.addEventListener('click', async ()=>{
           </div>
         </div>
 
+        <!-- Soft Skills -->
+        <div style="margin-bottom: 20px; padding: 15px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 10px; border: 1px solid #cbd5e1; box-shadow: 0 3px 8px rgba(71, 85, 105, 0.1), inset 0 1px 0 rgba(255,255,255,0.8);">
+          <h2 style="color: #1e293b; font-size: 1.4em; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #64748b; text-shadow: 0 1px 2px rgba(0,0,0,0.05);">Soft Skills</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            ${PROFILE.softSkills.map(s => `
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: linear-gradient(135deg, #e2e8f0 0%, #f8fafc 100%); border-radius: 6px; border: 1px solid #cbd5e1; border-left: 3px solid #64748b; font-size: 1em; box-shadow: 0 2px 4px rgba(71, 85, 105, 0.08);">
+                <span style="font-weight: 600; color: #1e293b;">${s.name}</span>
+                <span style="color: #64748b; font-weight: bold; background: rgba(71, 85, 105, 0.1); padding: 2px 6px; border-radius: 4px;">${s.lvl}%</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1491,47 +1502,75 @@ downloadBtn.addEventListener('click', async ()=>{
           </div>
         </div>
       
-        <!-- Education -->
-        <div style="margin-bottom: 25px; padding: 18px; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-radius: 12px; border: 2px solid #cbd5e1; box-shadow: 0 4px 12px rgba(71, 85, 105, 0.15), inset 0 1px 0 rgba(255,255,255,0.8);">
-          <h2 style="color: #1e293b; font-size: 1.5em; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 3px solid #64748b; text-shadow: 0 1px 2px rgba(0,0,0,0.05);">Education</h2>
-          <div style="padding: 15px; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); border-radius: 8px; border: 1px solid #cbd5e1; border-left: 4px solid #2563eb; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.08);">
-            <div style="margin-bottom: 12px; font-size: 1.1em; padding: 8px; background: rgba(37, 99, 235, 0.05); border-radius: 6px;">
-              <strong style="color: #1e293b;">B.A. History</strong> — Kyaukse University, Mandalay (June 2018)
-            </div>
-            <div style="margin-bottom: 12px; font-size: 1.1em; padding: 8px; background: rgba(37, 99, 235, 0.05); border-radius: 6px;">
-              <strong style="color: #1e293b;">Business in Marketing (IQN)</strong> — MIBA, Yangon (November 2018)
-            </div>
-            <div style="font-size: 1.1em; padding: 8px; background: rgba(37, 99, 235, 0.05); border-radius: 6px;">
-              <strong style="color: #1e293b;">Business in English (IQN)</strong> — MIBA, Yangon (Expected November 2024)
-            </div>
-          </div>
+      <!-- Additional Experience (Separate section to prevent page break issues) -->
+      <div style="margin-bottom: 18px; padding: 12px; background: #f8fafc; border-radius: 6px; border-left: 3px solid #475569; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h2 style="color: #1e293b; font-size: 1.3em; margin-bottom: 12px; padding-bottom: 4px; border-bottom: 1px solid #cbd5e1;">Additional Experience</h2>
+        
+        <div style="margin-bottom: 10px; padding: 10px; background: #f1f5f9; border-radius: 5px; border-left: 3px solid #6366f1; page-break-inside: avoid;">
+          <h3 style="margin: 0 0 4px 0; color: #1e293b; font-size: 1.15em; font-weight: bold;">Personal Assistant</h3>
+          <p style="margin: 0 0 3px 0; color: #6366f1; font-weight: 600; font-size: 1em;">Nilar Holding Co., Ltd</p>
+          <p style="margin: 0 0 5px 0; color: #64748b; font-style: italic; font-size: 0.95em;">Sep 2019 – Nov 2021 · Yangon</p>
+          <ul style="margin: 0; padding-left: 16px; color: #374151; font-size: 0.95em;">
+            <li style="margin-bottom: 3px;">Managed executive schedules and travel; prepared reports and communications</li>
+            <li style="margin-bottom: 3px;">Planned and coordinated events and meetings; handled logistics and budgeting</li>
+          </ul>
         </div>
         
-        <!-- Certifications & Training -->
-        <div style="margin-bottom: 25px; padding: 18px; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); border-radius: 12px; border: 2px solid #cbd5e1; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15), inset 0 1px 0 rgba(255,255,255,0.8);">
-          <h2 style="color: #1e293b; font-size: 1.5em; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 3px solid #2563eb; text-shadow: 0 1px 2px rgba(0,0,0,0.05);">Certifications & Training</h2>
-          <div style="padding: 15px; background: linear-gradient(135deg, #e2e8f0 0%, #f8fafc 100%); border-radius: 8px; border: 1px solid #cbd5e1; border-left: 4px solid #64748b; box-shadow: 0 2px 4px rgba(71, 85, 105, 0.08);">
-            <ul style="margin: 0; padding-left: 20px; color: #374151; font-size: 1.1em;">
-              <li style="margin-bottom: 8px; padding: 4px; background: rgba(71, 85, 105, 0.05); border-radius: 4px;">Standard Operating Procedure (SOP) — Myanmar Nilar Food Stuff Co. Ltd</li>
-              <li style="margin-bottom: 8px; padding: 4px; background: rgba(71, 85, 105, 0.05); border-radius: 4px;">ISO 22000 — Nilar Frozen Foods Co. Ltd</li>
-              <li style="margin-bottom: 8px; padding: 4px; background: rgba(71, 85, 105, 0.05); border-radius: 4px;">HACCP — Nilar Frozen Foods Co. Ltd</li>
-              <li style="margin-bottom: 8px; padding: 4px; background: rgba(71, 85, 105, 0.05); border-radius: 4px;">Customer Service — Myanmar Nilar Food Stuff Co. Ltd</li>
-              <li style="margin-bottom: 8px; padding: 4px; background: rgba(71, 85, 105, 0.05); border-radius: 4px;">Leadership & Management — Myanmar Nilar Food Stuff Co. Ltd</li>
-            </ul>
-          </div>
-        </div>
-        
-        <!-- Hobbies & Interests -->
-        <div style="margin-bottom: 25px; padding: 18px; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-radius: 12px; border: 2px solid #cbd5e1; box-shadow: 0 4px 12px rgba(71, 85, 105, 0.15), inset 0 1px 0 rgba(255,255,255,0.8);">
-          <h2 style="color: #1e293b; font-size: 1.5em; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 3px solid #64748b; text-shadow: 0 1px 2px rgba(0,0,0,0.05);">Hobbies & Interests</h2>
-          <div style="padding: 15px; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); border-radius: 8px; border: 1px solid #cbd5e1; border-left: 4px solid #2563eb; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.08); text-align: center;">
-            <p style="margin: 0; color: #374151; font-size: 1.2em; line-height: 1.6; font-weight: 500;">
-              Programming & Coding · Learning New Technologies · Photography · Puzzles & Logical Games
-            </p>
+        <div style="padding: 8px; background: #f9fafb; border-radius: 4px; border-left: 3px solid #6b7280;">
+          <h4 style="margin: 0 0 4px 0; color: #1e293b; font-size: 1.05em; font-weight: bold;">Other Positions</h4>
+          <div style="font-size: 0.9em; color: #4b5563; line-height: 1.4;">
+            • <strong>Sales & Marketing Supervisor</strong> — Myanmar Nilar Food Stuffs (Feb 2017 – Aug 2019)<br>
+            • <strong>Warehouse Assistant</strong> — Pro-One Home Center (Dec 2015 – Oct 2016)<br>
+            • <strong>Interviewer (Intern)</strong> — Neilsen MMRD (Jan 2016 – Apr 2016)<br>
+            • <strong>Office Executive</strong> — ITN Company Limited (Jul 2014 – Oct 2015)
           </div>
         </div>
       </div>
 
+      <!-- Education -->
+      <div style="margin-bottom: 18px; padding: 12px; background: #fef2f2; border-radius: 6px; border-left: 3px solid #dc2626; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h2 style="color: #1e293b; font-size: 1.3em; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #cbd5e1;">Education</h2>
+        <div style="padding: 10px; background: #fee2e2; border-radius: 5px; border-left: 3px solid #dc2626;">
+          <div style="margin-bottom: 8px; font-size: 1.05em;">
+            <strong style="color: #1e293b;">B.A. History</strong> — Kyaukse University, Mandalay (June 2018)
+          </div>
+          <div style="margin-bottom: 8px; font-size: 1.05em;">
+            <strong style="color: #1e293b;">Business in Marketing (IQN)</strong> — MIBA, Yangon (November 2018)
+          </div>
+          <div style="font-size: 1.05em;">
+            <strong style="color: #1e293b;">Business in English (IQN)</strong> — MIBA, Yangon (Expected November 2024)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2: Certifications, Training & Additional Info -->
+    <div style="page-break-after: always; min-height: 9in;">
+      <!-- Certifications & Training -->
+      <div style="margin-bottom: 25px; padding: 15px; background: #f0fdfa; border-radius: 8px; border-left: 4px solid #059669; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h2 style="color: #1e293b; font-size: 1.4em; margin-bottom: 12px; padding-bottom: 5px; border-bottom: 1px solid #cbd5e1;">Certifications & Training</h2>
+        <div style="padding: 12px; background: #d1fae5; border-radius: 6px; border-left: 3px solid #059669;">
+          <ul style="margin: 0; padding-left: 18px; color: #374151; font-size: 1.05em;">
+            <li style="margin-bottom: 6px;">Standard Operating Procedure (SOP) — Myanmar Nilar Food Stuff Co. Ltd</li>
+            <li style="margin-bottom: 6px;">ISO 22000 — Nilar Frozen Foods Co. Ltd</li>
+            <li style="margin-bottom: 6px;">HACCP — Nilar Frozen Foods Co. Ltd</li>
+            <li style="margin-bottom: 6px;">Customer Service — Myanmar Nilar Food Stuff Co. Ltd</li>
+            <li style="margin-bottom: 6px;">Leadership & Management — Myanmar Nilar Food Stuff Co. Ltd</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Hobbies & Interests -->
+      <div style="margin-bottom: 25px; padding: 15px; background: #faf5ff; border-radius: 8px; border-left: 4px solid #7c3aed; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h2 style="color: #1e293b; font-size: 1.4em; margin-bottom: 12px; padding-bottom: 5px; border-bottom: 1px solid #cbd5e1;">Hobbies & Interests</h2>
+        <div style="padding: 12px; background: #ede9fe; border-radius: 6px; border-left: 3px solid #7c3aed;">
+          <p style="margin: 0; color: #374151; font-size: 1.1em; line-height: 1.6;">
+            Programming & Coding · Learning New Technologies · Photography · Puzzles & Logical Games
+          </p>
+        </div>
+      </div>
+      
+    </div>
   `;
   
   document.body.appendChild(exportNode);
@@ -1596,5 +1635,4 @@ setTimeout(()=> {
 */
 </script>
 </body>
-
 </html>
